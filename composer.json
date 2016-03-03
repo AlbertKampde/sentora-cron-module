@@ -1,0 +1,13 @@
+{
+  "name": "albertkampde/sentora-cron-module",
+  "description": "Sentora Cron Module",
+  "keywords": ["sentora", "cron", "module"],
+  "license": "MIT",
+  "type": "module",
+  "authors": [
+    { "name": "Albert Campde" }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  }
+}
