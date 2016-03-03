@@ -54,7 +54,10 @@ class Cronfile
                 $fetchRows->execute();
                 $rowclient = $fetchRows->fetch();
                 if ($rowclient && $rowclient['ac_enabled_in'] <> 0) {
-                    $line .= $rowcron['ct_timing_vc'] . " " . $this->getRestrictions($user) . $rowcron['ct_fullpath_vc'] . $this->newLine();
+                    $line .= $rowcron['ct_timing_vc'] . " " . $this->getRestrictions($rowclient['ac_user_vc'])
+                        . $rowcron['ct_fullpath_vc']
+                        . " > " . $this->getSystemOption('hosted_dir') . $rowclient['ac_user_vc'] . "/logs/cron." . $rowcron['ct_id_pk'] . ".log 2>&1"
+                        . $this->newLine();
                 }
             }
         }
@@ -114,7 +117,7 @@ class Cronfile
         if ($this->getOsPlatformVersion() == "Windows") {
             $line .= "# Cron Debug infomation can be found in file C:\WINDOWS\System32\crontab.txt " . $this->newLine();
             $line .= "#################################################################################" . $this->newLine();
-            $line .= "" . $this->getSystemOption('daemon_timing') . " " . $this->getRestrictions($user) . $this->getSystemOption('daemon_exer') . $this->newLine();
+            $line .= "" . $this->getSystemOption('daemon_timing') . " " . $this->getRestrictions($user['username']) . $this->getSystemOption('daemon_exer') . $this->newLine();
         }
         $line .= "#################################################################################" . $this->newLine();
         $line .= "# NEVER MANUALLY REMOVE OR EDIT ANY OF THE CRON ENTRIES FROM THIS FILE,          " . $this->newLine();
@@ -125,14 +128,14 @@ class Cronfile
     }
 
     /**
-     * @param array $user
+     * @param string $username
      * @return string
      */
-    protected function getRestrictions($user)
+    protected function getRestrictions($username)
     {
         return $this->getSystemOption('php_exer') .
             " -d suhosin.executor.func.blacklist=\"passthru, show_source, shell_exec, system, pcntl_exec, popen, pclose, proc_open, proc_nice, proc_terminate, proc_get_status, proc_close, leak, apache_child_terminate, posix_kill, posix_mkfifo, posix_setpgid, posix_setsid, posix_setuid, escapeshellcmd, escapeshellarg, exec\" -d open_basedir=\""
-            . $this->getSystemOption('hosted_dir') . $user['username'] . "/"
+            . $this->getSystemOption('hosted_dir') . $username . "/"
             . $this->getSystemOption('openbase_seperator') . $this->getSystemOption('openbase_temp')
             . "\" ";
     }
