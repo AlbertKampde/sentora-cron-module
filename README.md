@@ -7,3 +7,7 @@ The oficial module not works well with multiple clients, I try to solve it with 
 Drop the entire code to the cron module folder on sentora panel, normally at:
 
 <pre>/etc/sentora/panel/modules/cron/</pre>
+
+Available with composer too:
+
+<pre>albertkampde/sentora-cron-module</pre>
