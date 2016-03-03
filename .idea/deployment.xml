@@ -1,7 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="PublishConfigData">
+  <component name="PublishConfigData" autoUpload="Always" serverName="KPWebhosting CRON">
     <serverData>
+      <paths name="KPWebhosting CRON">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/etc/sentora/panel/modules/cron" local="$PROJECT_DIR$" web="?module=cron" />
+          </mappings>
+        </serverdata>
+      </paths>
       <paths name="Windows 10 PC">
         <serverdata>
           <mappings>
@@ -10,5 +17,6 @@
         </serverdata>
       </paths>
     </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
   </component>
 </project>
